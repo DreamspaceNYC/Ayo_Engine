@@ -1,0 +1,52 @@
+﻿{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Whisper Transcriber",
+    "version": "1.0.0",
+    "description": "Upload audio and get transcription using Whisper model."
+  },
+  "paths": {
+    "/transcribe": {
+      "post": {
+        "summary": "Transcribe Audio File",
+        "operationId": "transcribeAudio",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "The audio file to transcribe"
+                  }
+                },
+                "required": ["file"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transcribed text",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "description": "The transcription result"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
