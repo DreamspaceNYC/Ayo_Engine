@@ -16,6 +16,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+async def health_check():
+    return {"status": "ok"}
+
 model = whisper.load_model("base")
 
 @app.post("/transcribe")
@@ -48,4 +52,5 @@ async def transcribe(file: UploadFile = File(...)):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=7860)
+    port = int(os.getenv("PORT", 8080))
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
